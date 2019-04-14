@@ -5,26 +5,25 @@
   ([] "Hello World!")
   ([a] (str "Hello, you silly " a "."))
   ([a & more] (str "Hello to this group: "
-                   (apply str
-                          (interpose ", " (cons a more)))
-                   "!")))
+                   (apply str (interpose ", " (cons a more))) "!")))
 
 (defmulti diet (fn [x] (:eater x)))
-(defmethod diet :herbivore [a] __)
-(defmethod diet :carnivore [a] __)
-(defmethod diet :default [a] __)
+(defmethod diet :herbivore [a] (str (get a :name) " eats veggies."))
+(defmethod diet :carnivore [a] (str (:name a) " eats animals.")) ; (a :name) also works.
+(defmethod diet :default [a] (str "I don't know what " (:name a) " eats."))
 
 (meditations
   "Some functions can be used in different ways - with no arguments"
-  (= __ (hello))
+  (= "Hello World!" (hello))
 
   "With one argument"
-  (= __ (hello "world"))
+  (= "Hello, you silly world." (hello "world"))
 
   "Or with many arguments"
-  (= __
+  (= "Hello to this group: Peter, Paul, Mary!"
      (hello "Peter" "Paul" "Mary"))
 
+  ;; Referred https://www.youtube.com/watch?v=CDZ-xKZcLXE for this
   "Multimethods allow more complex dispatching"
   (= "Bambi eats veggies."
      (diet {:species "deer" :name "Bambi" :age 1 :eater :herbivore}))
