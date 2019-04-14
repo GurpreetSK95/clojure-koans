@@ -26,7 +26,7 @@
   (= "AACC" (#(str "AA" %2) "bb" "CC"))
 
   "One function can beget another"
-  (= 9 (((fn [] #(+ %1 %2))) 4 5))
+  (= 9 (((fn [] #(+ %1 %2))) 4 5))                          ; FIXME(gs) Didn't get this.
 
   "Functions can also take other functions as input"
   (= 20 ((fn [f r] (r 0 (f 4 5)))
